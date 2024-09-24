@@ -1,5 +1,27 @@
 body{
-    background-color: grey;
+    background-color: rgba(202, 202, 202, 1);
     
     
+}
+.main{
+background-color: rgba(238, 238, 238, 1);
+height: 400px;
+width: 800px;
+margin-left: 80px;
+margin-top: 30px;
+}
+.logo{
+    height: 200px;
+    width: 350px;
+    padding-top: 30px;
+  margin-left: -70px;
+}
+.second-main{
+    background-color: white;
+    height: 330px;
+    width: 300px;
+    margin-left: 480px;
+ margin-top: -200px;
+ box-shadow:  0px 4px 4px rgba(31, 31, 31, 0.3);
+ 
 }
