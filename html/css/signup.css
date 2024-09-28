@@ -22,24 +22,41 @@ margin-top: 30px;
     margin-left: 780px;
  margin-top: -240px;
  box-shadow:  3px 4px 4px rgba(31, 31, 31, 0.3);
+<<<<<<< HEAD:html/signup.css
  
+=======
+
+>>>>>>> cabedd3e8652ae8090f828254f708336ca303439:html/css/signup.css
 
 }
 .title{
+display: flex;
+flex-direction: column;
+margin-left: 30px;
+}
+.titles{
   font-weight: bold;
-  font-size: 35px;
+  font-size: 34px;
+  margin-top: 12px;
   
+}
+.sub-title{
+  font-size: 16px;
+  margin-top: 8px;
 }
 .firstname,.lastname{
   background-color: rgba(240, 240, 240, 1);
   border: none;
   border-radius: 4px;
-  padding: 8px ;
+  padding: 10px 8px;
  }
-
+a{
+  color: rgba(1, 137, 71, 1)
+}
  .names{
   display: flex;
   gap: 15px;
+<<<<<<< HEAD:html/signup.css
  }
  .email,.pword,.cpword{
   background-color: rgba(240, 240, 240, 1);
@@ -50,4 +67,9 @@ margin-top: 30px;
   display: flex;
   margin-top: 15px;
 
+=======
+  margin-left: 30px;
+  margin-top: 20px;
+  color: rgba(157, 157, 157, 1);
+>>>>>>> cabedd3e8652ae8090f828254f708336ca303439:html/css/signup.css
  }
