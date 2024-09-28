@@ -22,7 +22,7 @@ margin-top: 30px;
     margin-left: 780px;
  margin-top: -240px;
  box-shadow:  3px 4px 4px rgba(31, 31, 31, 0.3);
- align-self: center;
+ 
 
 }
 .title{
@@ -40,4 +40,14 @@ margin-top: 30px;
  .names{
   display: flex;
   gap: 15px;
+ }
+ .email,.pword,.cpword{
+  background-color: rgba(240, 240, 240, 1);
+  background-color: rgba(240, 240, 240, 1);
+  border: none;
+  border-radius: 4px;
+  padding: 8px ;
+  display: flex;
+  margin-top: 15px;
+
  }
