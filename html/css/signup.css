@@ -22,11 +22,6 @@ margin-top: 30px;
     margin-left: 780px;
  margin-top: -240px;
  box-shadow:  3px 4px 4px rgba(31, 31, 31, 0.3);
-<<<<<<< HEAD:html/signup.css
- 
-=======
-
->>>>>>> cabedd3e8652ae8090f828254f708336ca303439:html/css/signup.css
 
 }
 .title{
@@ -56,7 +51,7 @@ a{
  .names{
   display: flex;
   gap: 15px;
-<<<<<<< HEAD:html/signup.css
+
  }
  .email,.pword,.cpword{
   background-color: rgba(240, 240, 240, 1);
@@ -67,16 +62,13 @@ a{
   display: flex;
   margin-top: 15px;
 
-=======
+
   margin-left: 30px;
   margin-top: 20px;
   color: rgba(157, 157, 157, 1);
-<<<<<<< Updated upstream
->>>>>>> cabedd3e8652ae8090f828254f708336ca303439:html/css/signup.css
+
  }
-=======
- }
+
  input[type=text]:focus {
   border-color: 1px  rgba(1, 137, 71, 1);
 }
->>>>>>> Stashed changes
