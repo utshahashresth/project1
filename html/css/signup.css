@@ -33,6 +33,7 @@ margin-left: 30px;
   font-weight: bold;
   font-size: 34px;
   margin-top: 12px;
+  margin-bottom: 10px;
   
 }
 .sub-title{
@@ -45,6 +46,10 @@ margin-left: 30px;
   border: none;
   border-radius: 4px;
   padding: 10px 8px;
+  margin-top: 30px;
+  height:35px ;
+  width: 168px;
+
  }
 a{
   color: rgba(1, 137, 71, 1);
@@ -66,8 +71,9 @@ a{
 
 
   margin-left: 30px;
-  margin-top: 20px;
+  margin-top: 30px;
   color: rgba(157, 157, 157, 1);
+  width: 350px;
 
  }
  input {
@@ -80,4 +86,30 @@ a{
 input:focus {
   border: 1px solid;
   border-color:rgba(1, 137, 71, 1);  
+  
+}
+.firstname{
+  margin-left: 30px;
+}
+
+
+.button{
+  margin-top: 12px;
+  height: 35px;
+  width: 350px;
+  margin-left: 30px;
+background-color: rgba(1, 137, 71, 1);
+color: white;
+font-weight: bold;
+border: none;
+border-radius: 5px;
+padding: 8px;
+margin-top: 30px;
+
+}
+.agree{
+  margin-top: 30px;
+  display: flex;
+  align-items: baseline;
+
 }
