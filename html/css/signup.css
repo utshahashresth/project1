@@ -77,10 +77,10 @@ a{
 
  }
  input {
-  border: 2px solid #ccc; /* Default border color */
+  border: 2px solid #ccc; 
   padding: 10px;
-  outline: none; /* Optional: remove default outline */
-  transition: border-color 0.3s ease; /* Optional: smooth transition */
+  outline: none; 
+  transition: border-color 0.3s ease; 
 }
 
 input:focus {
@@ -110,6 +110,31 @@ margin-top: 30px;
 .agree{
   margin-top: 30px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  margin-left: 30px;
 
+}
+input[type=checkbox]{
+  border-color: grey;
+  border: 2px solid;
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+@media (max-width: 600px) {
+    .names {
+        flex-direction: column;
+    }
+
+    .titles {
+        font-size: 20px;
+    }
+
+    .sub-title {
+        font-size: 12px;
+    }
+
+    .button {
+        font-size: 14px;
+    }
 }
