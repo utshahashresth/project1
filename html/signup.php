@@ -22,7 +22,11 @@ include("connection.php");
             <div class="titles">Create an account</div>
 <div class="sub-title ">Already have an account? <a href="login.html">login</a></div>
         </div>
+<<<<<<< Updated upstream:html/signup.php
 <form action="insert.php" method="post">
+=======
+<form action="" method="post">
+>>>>>>> Stashed changes:html/signup.html
 <div class="names">
 <div><input type="text" placeholder="first name" class="firstname"></div>
 <div><input type="text" placeholder="last name" class="lastname"></div>
