@@ -1,3 +1,7 @@
+<?php
+include("connection.php");
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +22,7 @@
             <div class="titles">Create an account</div>
 <div class="sub-title ">Already have an account? <a href="login.html">login</a></div>
         </div>
-<form action="" method="get">
+<form action="insert.php" method="post">
 <div class="names">
 <div><input type="text" placeholder="first name" class="firstname"></div>
 <div><input type="text" placeholder="last name" class="lastname"></div>
@@ -32,7 +36,7 @@
 <div class="term">I agree to the <a href="">terms and condition</a> </div>
 </div>
 <div class="create_account">
-<div><button class="button " type="submit">Create account</button></div>
+<div><button class="button " type="submit" name="signup">Create account</button></div>
 </div>
     </div>
 </form>
