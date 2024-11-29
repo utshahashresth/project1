@@ -1,5 +1,6 @@
 <?php
 include("connection.php");
+
 if(isset($_POST["signup"])){
     $firstname=$_POST["f_name"];
     
@@ -18,9 +19,6 @@ if(isset($_POST["signup"])){
     }
     catch(mysqli_sql_exception){
         echo "not connected";
-   
     }
-
-    mysqli_close($conn);
 
 ?>

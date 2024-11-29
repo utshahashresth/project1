@@ -20,7 +20,7 @@ include("../backend/connection.php");
     <div class="second-main">
         <div class="title">
             <div class="titles">Create an account</div>
-<div class="sub-title ">Already have an account? <a href="login.html">login</a></div>
+<div class="sub-title ">Already have an account? <a href="../backend/login.php">login</a></div>
         </div>
 
 
