@@ -23,12 +23,14 @@ include("../backend/connection.php");
 <div class="sub-title ">Already have an account? <a href="login.html">login</a></div>
         </div>
 
+
 <form action="../backend/insert.php" method="post">
 
 
 <div class="names">
 <div><input type="text" placeholder="first name" class="firstname" name="f_name"></div>
 <div><input type="text" placeholder="last name" class="lastname" name="l_name"></div>
+
 </div>
 
 <div><input type="email" placeholder="abc@example.com" class="email" name="email"></div>

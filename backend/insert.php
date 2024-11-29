@@ -6,20 +6,21 @@ if(isset($_POST["signup"])){
     $lastname=$_POST["l_name"];
     $email=$_POST["email"];
     $password=$_POST["password"];
-   
     $hashpwd=password_hash($password,PASSWORD_BCRYPT);
+
 }
 
-    $sql= "INSERT INTO register(f_name,l_name,email,pword)VALUES( '$firstname','$lastname',' $email','$hashpwd')";
+    $sql= "INSERT INTO register(f_name,l_name,email,pword)VALUES( '$firstname','$lastname',' $email','$hashpwd)";
     try{
     mysqli_query($conn, $sql);
-    header("location:/project1/frontend/login.php ");
-    exit();
+  echo("connected");
+    
     }
-    catch(mysqli_sql_exception,$e){
+    catch(mysqli_sql_exception){
         echo "not connected";
-        echo"$e";
+   
     }
+
     mysqli_close($conn);
 
 ?>
