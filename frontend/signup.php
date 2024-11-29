@@ -1,5 +1,5 @@
 <?php
-include("connection.php");
+include("../backend/connection.php");
 ?>
 
 <html lang="en">
@@ -23,7 +23,7 @@ include("connection.php");
 <div class="sub-title ">Already have an account? <a href="login.html">login</a></div>
         </div>
 
-<form action="insert.php" method="post">
+<form action="../backend/insert.php" method="post">
 
 
 <div class="names">
