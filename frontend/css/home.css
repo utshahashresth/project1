@@ -4,16 +4,14 @@
     margin-top: 15px;
     margin-left: -15px;
 }
-.logo{
- 
-}
+
 .top-bar{
     background-color:rgba(238, 233, 229, 1) ;
     margin: -10px;
 }
 .side-bar{
     box-shadow:  3px 4px 4px rgba(31, 31, 31, 0.3);
-    height: 600px;
+    height: 700px;
     width: 200px;
     margin-top: 8px;
     font-weight: 500;
@@ -106,29 +104,9 @@ height: 80px;
     display: flex;
 
 }
-.table{
-    border: 1px solid black;
-    width: 320px;
-    margin-left: 40px;
-    margin-top: 20px;
-    height: 200px;
-}
-input{
-    width: 200px;
-    height: 20px;
-    font-size: 8px;
-    margin-top: 2px;
-    
-    
-}
-input[type=number]{
-    width: 40px;
-    height: 20px;
-    font-size: 8px;
-    margin-top: 2px;
-    
-    
-}
+
+
+
 
 .amount-holder{
     display: flex;
@@ -196,8 +174,7 @@ input{
     margin-top: 7px;
     margin-bottom: 20px;
     padding: 2px 3px 2px 3px;
-
-  
+    border: 1px solid grey;
 
 }
 .box{
@@ -226,5 +203,24 @@ input[type=number]{
 }
 label{
     color: grey;
+}
+.table{
+    display: flex;
+    gap: 200px;
+}
+.expense{
+    font-weight: bold;
+    color: rgba(187, 0, 0, 1);
+    font-size: larger;
+    margin-left: 50px;
+}
+.expense-btn{
+    height: 40px;
+    width: 150px;
+    border-radius: 4px;
+    background-color: rgba(187, 0, 0, 1);
+    color: white;
+    font-weight: bold;
+    border: none;
 }
 
