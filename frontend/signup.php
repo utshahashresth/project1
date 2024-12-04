@@ -25,8 +25,6 @@ include("../backend/connection.php");
 
 
 <form action="../backend/insert.php" method="post">
-
-
 <div class="names">
 <div><input type="text" placeholder="first name" class="firstname" name="f_name"></div>
 <div><input type="text" placeholder="last name" class="lastname" name="l_name"></div>

@@ -70,33 +70,10 @@ session_start();
                 </div>
                 </div>
             </div>
-            <div class="additions">
-<div class="table" >
-    <div class="table-title">
-<div class="sub-title">Income</div>
-<div id="expense-title">Expense</div>
-</div>
-<div class="tags">tags</div>
-<div class="amount-holder">
-    <div class="dropdown">
-        <input list="types" placeholder="choose a existing tags or add new" />
-        <datalist id="types">
-          <option value="personal expense">
-          <option value="rent">
-          <option value="food">
-          <option value="entertainment">
-        </datalist>
-        </div>
-        <div class="amt">
-</div>
-<input type="number" placeholder="amount">
-</div>
-<div class="note">
-    <div><input type="textarea" name="" id=""></div>
-    <div><button class="add-btn" >add income</button></div>
-</div>
 
-</div>
+
+
+
 
 </div>
 
