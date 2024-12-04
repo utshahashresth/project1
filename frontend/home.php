@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +46,7 @@
         </div>  
         <div class="mid-bar">
             <div class="dash">DASHBOARD</div>
-            <div class="welcome">WELCOME UTSHAHA</div>
+            <div class="welcome">WELCOME <?php echo strtoupper( htmlspecialchars( $_SESSION['fname']))?></div>
             <div class="transaction">
                 <div class="income" >
                     <div class="title">Total income</div>

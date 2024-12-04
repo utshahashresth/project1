@@ -17,7 +17,7 @@ if (isset($_POST["signup"])) {
             throw new Exception("Registration failed: " . mysqli_error($conn));
         }
     } catch (Exception $e) {
-        error_log("SQL error: " . $e->getMessage());
+       
         echo "Sorry, an error occurred during registration. Please try again later.";
     }
 
