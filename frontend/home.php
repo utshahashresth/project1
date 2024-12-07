@@ -23,11 +23,11 @@ session_start();
         </div>
      
         <div class="side-bar">
-            <div class="individual">
+            <div class="individual" id="home">
             <div><img src="icons/home.png" alt="" class="icons"></div>
             <div>Home</div>
         </div>
-            <div class="individual">
+            <div class="individual" id="stats">
             <div><img src="icons/bar-chart-square-01.png" alt="" class="icons"></div>
             <div>Statistics</div>
         </div>
@@ -68,10 +68,7 @@ session_start();
                     <div><img src="icons/icons8-balance-48 1.png" alt="" class="transaction-icons"></div>
                     <div class="balance-amt">&#8360;150000</div>
                 </div>
-               
                     </div>
-                   
-                    
                 </div>
                 <div class="table">
                 <div class="addincome">
@@ -94,7 +91,7 @@ session_start();
 
             </div>
             <div class="addincome">
-                <p class="expense">Add Income</p>
+                <p class="expense">Add expense</p>
                 <div class="box">
                    
                     <label for="categoty">Category</label>
@@ -120,7 +117,7 @@ session_start();
 </div>
 
                     </div>
-               
+               <script src="navigation.js"></script>
     </div>
 </body>
 </html>

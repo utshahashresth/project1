@@ -34,7 +34,7 @@ body{
     margin-top: 30px;
 }
 #setting{
-    margin-top: 300px;
+    margin-top: 390px;
 }
 .dash{
     font-weight: 600;
@@ -48,7 +48,13 @@ body{
 }
 .mid-bar{
     margin-left: 240px;
-  margin-top: -600px;
+  margin-top: -700px;
+}
+.transaction{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+    margin-top: 20px;
 }
 .income{
     border: 1px solid black;
@@ -86,78 +92,13 @@ height: 80px;
     font-weight: bold;
     font-size: 16px;
 }
-.transaction{
-    display: flex;
-    justify-content: space-between;
-    margin-right: 10px;
-    margin-top: 20px;
-}
-.additions{
-    box-shadow:3px 4px 4px rgba(31, 31, 31, 0.3); 
-    border: 1px solid black;
-    width: 400px;
-    height: 300px;
-    margin-left: 300px;
-    margin-top: 60px;
-}
-.table-title{
-    display: flex;
 
-}
-
-
-
-
-.amount-holder{
-    display: flex;
-    gap: 7px;
-    margin-left: 12px;
-    margin-top: 10px;
-}
-.note{
-    display: flex;
-    margin-top: 12px;
-    gap: 15px;
-    margin-left: 12px;
-    
-}
-.add-btn{
-    background-color: rgba(1, 137, 71, 1);
-    border: none;
-    color: white;
-    padding: 4px 8px;
-    margin-top: 2px;
-    border-radius: 4px;
-}
-.sub-title{
-    margin-right: 80px;
-    margin-left: 40px;
-    border-right: 1px solid black;
-    padding-right: 60px;
-    color:rgba(1, 137, 71, 1);;
-}
-.table-title{
-    border-bottom: 1px solid black;
-}
-.tags{
-    font-size: 8px;
-    margin-top: 4px;
-    margin-left:18px ;
-}
-#expense-title{
-    color: rgba(187, 0, 0, 1);
-}
 .addincome{
-    
     margin-top: 50px;
     border-radius: 5px;
     height: 450px;
     width: 350px;
-    box-shadow: 5px 5px 10px 2px rgba(3, 3, 3, 0.1);
-    
-   
-   
-    
+    box-shadow: 5px 5px 10px 2px rgba(3, 3, 3, 0.1);    
 }
 .addin{
     font-weight: bold;
@@ -181,9 +122,7 @@ input{
     display: flex;
     flex-direction: column;
     margin-left:50px ;
-   
-   
-  
+
 }
 input[type=number]{
     height: 30px;
@@ -206,7 +145,8 @@ label{
 }
 .table{
     display: flex;
-    gap: 200px;
+    gap: 180px;
+    margin-left: 80px;
 }
 .expense{
     font-weight: bold;
@@ -222,5 +162,9 @@ label{
     color: white;
     font-weight: bold;
     border: none;
+}
+.individual:hover{
+    background-color: lightgray;
+    cursor: pointer;
 }
 

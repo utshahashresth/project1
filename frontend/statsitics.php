@@ -41,3 +41,7 @@
         </div> 
         <div class="mid-bar">
             <div class="dash">Statsitics</div>
+       
+                
+            </body>
+            <script src="navigation.js"></script>

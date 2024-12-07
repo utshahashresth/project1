@@ -24,6 +24,12 @@ body{
   box-shadow:  3px 4px 4px rgba(31, 31, 31, 0.3);
   
   }
+  .amount-holder{
+    display: flex;
+    gap: 7px;
+    margin-left: 12px;
+    margin-top: 10px;
+}
   .title{
   display: flex;
   flex-direction: column;
