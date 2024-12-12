@@ -52,6 +52,7 @@ body{
             border: none;
             border-bottom: 2px solid rgb(0, 0, 0);
           }
+          
           .forgot-pass,.term,.button-holder{
             margin-left: 36px; 
             margin-top: 10px;

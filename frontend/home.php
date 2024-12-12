@@ -74,19 +74,20 @@ session_start();
                 <div class="addincome">
                     <p class="addin">Add Income</p>
                     <div class="box">
-                       
-                        <label for="categoty">Category</label>
-                        <input type="text" placeholder="Select category">
+                       <form action="../backend/income_insert.php" method="post">
+                        <label for="category">Category</label>
+                        <input type="text" placeholder="Select category" name="category">
                 
                         <label for="amount">Amount</label>
-                        <input type="number" placeholder="Enter Amount">
+                        <input type="number" placeholder="Enter Amount" name="amount">
                         <label for="date">Date</label>
-                        <input type="date">
+                        <input type="date" name="date">
                         <label for="note">Note</label>
-                        <input type="text" placeholder="Optional note">
+                        <input type="text" placeholder="Optional note" name="note">
                         <div class="b">
-                        <button type="submit" class="btn">Add Income</button>
+                        <button type="submit" class="btn" name="income">Add Income</button>
                     </div>
+                    </form>
                 </div>
 
             </div>
@@ -111,13 +112,12 @@ session_start();
         </div>
 
     </div>
-
-
-
 </div>
 
                     </div>
-               <script src="navigation.js"></script>
+               <script src="navigation.js">
+                
+               </script>
     </div>
 </body>
 </html>

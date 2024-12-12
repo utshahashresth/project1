@@ -12,12 +12,4 @@ try {
     echo"database couldnt be connected";
 }
 
-
-
-
-
-
-
-
-
 ?>

@@ -118,6 +118,7 @@ input{
     border: 1px solid grey;
 
 }
+
 .box{
     display: flex;
     flex-direction: column;
