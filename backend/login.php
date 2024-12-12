@@ -23,7 +23,7 @@
 <div class="details">
  
 <div><input type="text" placeholder="abc@gmail.com" class="email" name="email"></div>
-<div><input type="text" placeholder="Password" class="password" name="password"></div>
+<div><input type="password" placeholder="Password" class="password" name="password"></div>
 </div>
 <div class="forgot-pass">
     Forgot password?

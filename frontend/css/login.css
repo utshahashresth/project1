@@ -44,7 +44,7 @@ body{
             margin-left: 36px;
             margin-top: 8px;
           }
-          input[type=text] {
+          input[type=text],input[type=password] {
             width: 90%;
             padding: 10px 8px;
             margin: 8px 0;
@@ -52,6 +52,7 @@ body{
             border: none;
             border-bottom: 2px solid rgb(0, 0, 0);
           }
+         
           .forgot-pass,.term,.button-holder{
             margin-left: 36px; 
             margin-top: 10px;
