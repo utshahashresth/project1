@@ -15,6 +15,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="main">
          <div class="top-bar">
             <div class="logo">
@@ -92,23 +93,25 @@ session_start();
 
             </div>
             <div class="addincome">
+
                 <p class="expense">Add expense</p>
+                <form action="../backend/expense_insert.php/" method="post">
                 <div class="box">
                    
                     <label for="categoty">Category</label>
-                    <input type="text" placeholder="Select category">
+                    <input type="text" placeholder="Select category" name="category">
             
                     <label for="amount">Amount</label>
-                    <input type="number" placeholder="Enter Amount">
+                    <input type="number" placeholder="Enter Amount" name="amount">
                     <label for="date">Date</label>
-                    <input type="date">
+                    <input type="date" name="date">
                     <label for="note">Note</label>
-                    <input type="text" placeholder="Optional note">
+                    <input type="text" placeholder="Optional note" name="note">
                     <div class="b">
-                    <button type="submit" class="expense-btn">Add Expense</button>
+                    <button type="submit" class="expense-btn" name="expense">Add Expense</button>
                 </div>
             </div>
-
+            </form>
         </div>
 
     </div>
