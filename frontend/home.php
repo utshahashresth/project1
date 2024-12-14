@@ -74,8 +74,9 @@ session_start();
                 <div class="table">
                 <div class="addincome">
                     <p class="addin">Add Income</p>
+                    <form action="../backend/income_insert.php" method="post">
                     <div class="box">
-                       <form action="../backend/income_insert.php" method="post">
+                       
                         <label for="category">Category</label>
                         <input type="text" placeholder="Select category" name="category">
                 
@@ -95,7 +96,7 @@ session_start();
             <div class="addincome">
 
                 <p class="expense">Add expense</p>
-                <form action="../backend/expense_insert.php/" method="post">
+                <form action="../backend/expense_insert.php" method="post">
                 <div class="box">
                    
                     <label for="categoty">Category</label>
