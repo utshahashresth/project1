@@ -123,5 +123,21 @@ session_start();
                 
                </script>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+ 
+    $.ajax({
+        url: '../backend/fetch_income.php',
+        method: 'GET',
+        success: function (response) {
+            $('.income-amt').html("&#8360;" + response.trim());
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching total income:", error);
+        }
+    });
+});
+</script>
 </body>
 </html>

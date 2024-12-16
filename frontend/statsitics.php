@@ -18,11 +18,11 @@
         </div>
      
         <div class="side-bar">
-            <div class="individual">
+        <div class="individual" id="home">
             <div><img src="icons/home.png" alt="" class="icons"></div>
             <div>Home</div>
         </div>
-            <div class="individual">
+            <div class="individual" id="stats">
             <div><img src="icons/bar-chart-square-01.png" alt="" class="icons"></div>
             <div>Statistics</div>
         </div>
@@ -38,7 +38,6 @@
             <div><img src="icons/Vector.png" alt="" class="icons"></div>
             <div>Settings</div>
         </div>
-        </div> 
         <div class="mid-bar">
             <div class="dash">Statsitics</div>
        
