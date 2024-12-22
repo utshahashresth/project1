@@ -155,6 +155,11 @@ label{
     font-size: larger;
     margin-left: 50px;
 }
+.expense:hover{
+   
+    color: rgb(143, 0, 0);
+  
+}
 .expense-btn{
     height: 40px;
     width: 150px;

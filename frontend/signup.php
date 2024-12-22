@@ -32,8 +32,9 @@ include("../backend/connection.php");
 </div>
 
 <div><input type="email" placeholder="abc@example.com" class="email" name="email"></div>
-<div><input type="password" placeholder="password" class="pword" name="password"></div>
-<div><input type="password" placeholder="confirm password" class="cpword" name="c_password"></div>
+<div><input type="password" placeholder="password" class="pword" name="password" id="pword"></div>
+<div><input type="password" placeholder="confirm password" class="cpword" name="c_password" id="cpword"></div>
+<div id="msg"></div>
 <div class="agree">
 <div><input type="checkbox" name="" class="checkbox"></div>
 <div class="term">I agree to the <a href="">terms and condition</a> </div>
@@ -44,6 +45,6 @@ include("../backend/connection.php");
     </div>
 </form>
 </div>
-
+<script src="authentication.js"></script>
 </body>
 </html>
