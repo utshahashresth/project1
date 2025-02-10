@@ -9,9 +9,12 @@ function check() {
     if (pword.value==cpword.value) {
         msg.innerText="password matched succesfully"
         msg.classList.add("sucess")
+        msg.classList.remove("error")
     }else{
         msg.innerText="password incorrect"
         msg.classList.add("error")
+        msg.classList.remove("sucess")
+        
     }
     
 }
