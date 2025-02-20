@@ -144,4 +144,14 @@ body{
         font-size: 14px;
     }
   }
-  
+  .sucess{
+    color: green;
+    margin-left: 10px;
+  }
+  .error{
+    color: red;
+    margin-left: 10px;
+  }
+  #msg{
+    margin-left: 10px;
+  }
