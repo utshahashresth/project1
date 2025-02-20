@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
                 $mail->Subject = 'Verify Your Email Address';
                 
                 // Local verification link
-                $verification_link = "http://localhost/projectpadmashree/backend/verify.php?token=" . $verification_token;
+                $verification_link = "http://localhost/project/backend/verify.php?token=" . $verification_token;
                 
                 $mail->Body = "
                     <html>
