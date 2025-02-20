@@ -1,0 +1,34 @@
+
+.p1{
+    color: rgba(1, 137, 71, 1);
+    font-weight: 600;
+    font-size: 40px;
+}
+
+.parent{
+    display: flex;
+   width: 100%;
+   gap: 30px;
+   font-weight: 500;
+   
+}
+.child{
+    margin-top: 30px;
+    border-radius: 5px;
+    height: 130px;
+    width: 350px;
+    box-shadow: 5px 5px 10px 2px rgba(3, 3, 3, 0.1);
+}
+.parent2{
+    display: flex;
+    gap: 60px;
+    font-weight: 500;
+}
+
+.child2{
+    margin-top: 30px;
+    border-radius: 5px;
+    height: 400px;
+    width: 400px;
+    box-shadow: 5px 5px 10px 2px rgba(3, 3, 3, 0.1);
+}
