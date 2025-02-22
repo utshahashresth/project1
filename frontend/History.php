@@ -188,7 +188,7 @@ function showError(message) {
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
 
-        let url = `/projectpadmashree/backend/history_fetch.php?page=${currentPage}`;
+        let url = `../backend/history_fetch.php?page=${currentPage}`;
         if (startDate && endDate) url += `&start_date=${startDate}&end_date=${endDate}`;
 
         const response = await fetch(url);
