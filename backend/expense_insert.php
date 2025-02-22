@@ -37,18 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Check if user exists
-    $check_user = "SELECT id FROM register WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $check_user);
-    mysqli_stmt_bind_param($stmt, "i", $user_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    if (mysqli_num_rows($result) === 0) {
-        echo json_encode(['success' => false, 'error' => 'Invalid user ID']);
-        exit;
-    }
-
     // Check if category exists in expense_categories
     $query = "SELECT id FROM expense_categories WHERE category_name = ?";
     $stmt = mysqli_prepare($conn, $query);
@@ -63,11 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Insert into expense table
+    // Insert into expense table with correct category_id
     try {
-        $query = "INSERT INTO expense (u_id, category, amount, date, notes) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO expense (u_id, category_id, amount, date, notes) VALUES (?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "isdss", $user_id, $category, $amount, $date, $note);
+        mysqli_stmt_bind_param($stmt, "iidss", $user_id, $category_id, $amount, $date, $note);
 
         if (!mysqli_stmt_execute($stmt)) {
             throw new Exception(mysqli_error($conn)); // Capture MySQL error
