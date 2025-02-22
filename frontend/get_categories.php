@@ -1,20 +1,17 @@
 <?php
-include("../backend/connect.php");
+header('Content-Type: application/json');
+require '../backend/connect.php'; // Ensure this file correctly connects to the database
 
-$type = $_GET['type'] ?? '';
-if ($type === 'income_categories' || $type === 'expense_categories') {
-    $query = "SELECT category_name FROM $type";
-    $result = mysqli_query($conn, $query);
-    
-    $categories = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $categories[] = $row['category_name'];
+$sql = "SELECT id, category_name FROM expense_categories";
+$result = $conn->query($sql);
+
+$categories = [];
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $categories[] = $row;
     }
-    
-    header('Content-Type: application/json');
     echo json_encode($categories);
 } else {
-    header('HTTP/1.1 400 Bad Request');
-    echo json_encode(['error' => 'Invalid category type']);
+    echo json_encode(["error" => "Failed to fetch categories"]);
 }
 ?>
