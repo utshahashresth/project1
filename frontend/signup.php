@@ -24,7 +24,7 @@ include("../backend/connect.php");
                 <div class="titles">Create an account</div>
                 <div class="sub-title ">Already have an account? <a href="login.php" id="signupForm">login</a></div>
             </div>
-            <form action="/project1/backend/insert.php" method="post">
+            <form action="../backend/ja.php" method="post">
                 <div class="names">
                     <div><input type="text" placeholder="first name" class="firstname" name="f_name" required></div>
                     <div><input type="text" placeholder="last name" class="lastname" name="l_name" required></div>

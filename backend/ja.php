@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'utshahas@gmail.com'; // Your Gmail address
-                $mail->Password = 'odpt ksng pofo vnuo';    // Your Gmail App Password
+                $mail->Password = 'ulxs nmaz otti vemf';    // Your Gmail App Password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
                 
@@ -101,3 +101,4 @@ if (isset($_POST['submit'])) {
         mysqli_close($conn);
     }
 }
+?>

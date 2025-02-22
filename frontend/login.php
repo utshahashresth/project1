@@ -28,7 +28,7 @@ if (isset($_SESSION['error'])) {
             <div class="titles">Welcome</div>
 <div class="sub-title ">Enter your Email to continue </div>
         </div>
-<form action="/project1/backend/login_insert.php" method="post">
+<form action="../backend/login_insert.php" method="post">
 <div class="details">
 <div><input type="text" placeholder="abc@gmail.com" class="email" name="email" id="email" required></div>
 <div id="status"></div>

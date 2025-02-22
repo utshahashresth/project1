@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("connection.php");
+include("connect.php");
 if(isset($_POST['expense'])){
     $category=$_POST["category"];
     $amount=$_POST["amount"];
