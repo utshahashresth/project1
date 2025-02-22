@@ -37,29 +37,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Check if user exists
-    $check_user = "SELECT id FROM register WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $check_user);
-    mysqli_stmt_bind_param($stmt, "i", $user_id);
+    // Check if category exists in income_categories
+    $query = "SELECT id FROM income_categories WHERE category_name = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "s", $category);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
-    if (mysqli_num_rows($result) === 0) {
-        echo json_encode(['success' => false, 'error' => 'Invalid user ID']);
+    if ($row = mysqli_fetch_assoc($result)) {
+        $category_id = $row['id'];
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Invalid category']);
         exit;
     }
 
-    // Insert into income table
+    // Insert into income table with correct category_id
     try {
-        $query = "INSERT INTO income (u_id, category, amount, date, notes) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO income (u_id, category_id, amount, date, notes) VALUES (?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "isdss", $user_id, $category, $amount, $date, $note);
+        mysqli_stmt_bind_param($stmt, "iidss", $user_id, $category_id, $amount, $date, $note);
 
-        if (mysqli_stmt_execute($stmt)) {
-            echo json_encode(['success' => true]);
-        } else {
+        if (!mysqli_stmt_execute($stmt)) {
             throw new Exception(mysqli_error($conn)); // Capture MySQL error
         }
+
+        // Return success response
+        echo json_encode(['success' => true]);
 
         // Close statement
         mysqli_stmt_close($stmt);
@@ -73,4 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid request method']);
 }
+
+mysqli_close($conn);
 ?>

@@ -7,7 +7,6 @@ header('X-XSS-Protection: 1; mode=block');
 
 require_once("connect.php");
 
-
 // Function to send JSON response
 function sendJsonResponse($data, $statusCode = 200) {
     http_response_code($statusCode);
@@ -15,6 +14,7 @@ function sendJsonResponse($data, $statusCode = 200) {
     exit;
 }
 
+// Ensure user is authenticated
 if (!isset($_SESSION['user_id']) || !is_numeric($_SESSION['user_id'])) {
     sendJsonResponse([
         "status" => "error",
@@ -23,79 +23,72 @@ if (!isset($_SESSION['user_id']) || !is_numeric($_SESSION['user_id'])) {
 }
 
 $user_id = (int)$_SESSION['user_id'];
-
-// Set fixed limit to 4 and get page number
+$limit = 4;  // Fixed limit of 4 transactions per page
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-$limit = 4; // Fixed limit of 4 transactions
 $offset = ($page - 1) * $limit;
 
 // Optional filters
-$startDate = isset($_GET['start_date']) ? filter_var($_GET['start_date'], FILTER_SANITIZE_STRING) : null;
-$endDate = isset($_GET['end_date']) ? filter_var($_GET['end_date'], FILTER_SANITIZE_STRING) : null;
-$type = isset($_GET['type']) ? filter_var($_GET['type'], FILTER_SANITIZE_STRING) : null;
+$startDate = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+$endDate = isset($_GET['end_date']) ? $_GET['end_date'] : null;
+$type = isset($_GET['type']) ? $_GET['type'] : null;
 
 try {
-    // Combined query for both expenses and income using UNION
-    $query = "SELECT 
-                'expense' as type,
-                e.id,
-                e.u_id,
-                e.amount,
-                e.category,
-                e.date,
-                e.notes,
-                COUNT(*) OVER() as total_count
-            FROM expense e
-            WHERE e.u_id = ?
-            UNION ALL
-            SELECT 
-                'income' as type,
-                i.id,
-                i.u_id,
-                i.amount,
-                i.category,
-                i.date,
-                i.notes,
-                COUNT(*) OVER() as total_count
-            FROM income i
-            WHERE i.u_id = ?";
-
     $params = [$user_id, $user_id];
     $types = "ii";
+    $conditions = [];
 
-    // Add date range filters if provided
+    // Date filter
     if ($startDate && $endDate) {
-        $query = "SELECT * FROM ($query) as combined 
-                 WHERE date BETWEEN ? AND ?";
+        $conditions[] = "date BETWEEN ? AND ?";
         $params[] = $startDate;
         $params[] = $endDate;
         $types .= "ss";
     }
 
-    // Add type filter if provided
-    if ($type) {
-        $query = "SELECT * FROM ($query) as combined 
-                 WHERE type = ?";
-        $params[] = $type;
-        $types .= "s";
+    // Type filter
+    if ($type === 'income') {
+        $query = "SELECT 'income' as type, i.id, i.u_id, i.amount, c.category_name AS category, i.date, i.notes 
+                  FROM income i
+                  JOIN income_categories c ON i.category_id = c.id
+                  WHERE i.u_id = ?";
+    } elseif ($type === 'expense') {
+        $query = "SELECT 'expense' as type, e.id, e.u_id, e.amount, c.category_name AS category, e.date, e.notes 
+                  FROM expense e
+                  JOIN expense_categories c ON e.category_id = c.id
+                  WHERE e.u_id = ?";
+    } else {
+        $query = "(SELECT 'income' as type, i.id, i.u_id, i.amount, c.category_name AS category, i.date, i.notes 
+                   FROM income i
+                   JOIN income_categories c ON i.category_id = c.id
+                   WHERE i.u_id = ?)
+                   UNION ALL
+                   (SELECT 'expense' as type, e.id, e.u_id, e.amount, c.category_name AS category, e.date, e.notes 
+                   FROM expense e
+                   JOIN expense_categories c ON e.category_id = c.id
+                   WHERE e.u_id = ?)";
     }
 
-    // Add sorting and pagination with fixed limit of 4
-    $query = "SELECT *, COUNT(*) OVER() as final_count 
-             FROM ($query) as filtered 
-             ORDER BY date DESC 
-             LIMIT ? OFFSET ?";
+    // Apply filters
+    if (!empty($conditions)) {
+        $query .= " AND " . implode(" AND ", $conditions);
+    }
+
+    // Count total records
+    $countQuery = "SELECT COUNT(*) FROM ($query) as total_count";
+    $stmt = $conn->prepare($countQuery);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $stmt->bind_result($totalRecords);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Fetch paginated results
+    $query .= " ORDER BY date DESC LIMIT ? OFFSET ?";
     $params[] = $limit;
     $params[] = $offset;
     $types .= "ii";
 
     $stmt = $conn->prepare($query);
-
-    if (!$stmt) {
-        throw new Exception("Database error: " . $conn->error);
-    }
-
-    // Bind parameters dynamically
     $stmt->bind_param($types, ...$params);
 
     if (!$stmt->execute()) {
@@ -105,18 +98,10 @@ try {
     $result = $stmt->get_result();
 
     $transactions = [];
-    $totalRecords = 0;
-
     while ($row = $result->fetch_assoc()) {
-        $totalRecords = $row['final_count'];
-        unset($row['final_count']); 
-        unset($row['total_count']); 
-
-        // Format date and amount
         $row['date'] = date('Y-m-d H:i:s', strtotime($row['date']));
         $row['amount'] = number_format((float)$row['amount'], 2, '.', '');
 
-        // Add sign to amount based on transaction type
         if ($row['type'] === 'expense') {
             $row['amount'] = '-' . $row['amount'];
         }
@@ -139,9 +124,8 @@ try {
             $summary['total_expenses'] += abs($amount);
         }
     }
-    $summary['net_amount'] = $summary['total_income'] - $summary['total_expenses'];
 
-    // Prepare pagination metadata
+    $summary['net_amount'] = $summary['total_income'] - $summary['total_expenses'];
     $totalPages = ceil($totalRecords / $limit);
 
     sendJsonResponse([
@@ -172,5 +156,5 @@ try {
     if (isset($conn)) {
         $conn->close();
     }
-    
 }
+?>
