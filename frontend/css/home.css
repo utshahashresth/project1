@@ -209,12 +209,12 @@
     font-weight: bold;
     color: var(--primary-green);
     font-size: larger;
-<<<<<<< HEAD
+
     margin-left: 3.125rem;
   }
   
   .expense {
-=======
+
     margin-left: 50px;
 }
 .expense:hover{
@@ -228,7 +228,6 @@
     border-radius: 4px;
     background-color: rgba(187, 0, 0, 1);
     color: white;
->>>>>>> cdb0cb0e7487898d123a62652a8f28a03319dac0
     font-weight: bold;
     color: var(--primary-red);
     font-size: larger;
