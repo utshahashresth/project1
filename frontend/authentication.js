@@ -83,3 +83,8 @@ function validateEmail() {
    button.disabled = false;
    return true;
  }
+ document.getElementById('togglePassword').addEventListener('click', function() {
+  const passwordField = document.getElementById('password');
+  this.textContent = passwordField.type === 'password' ? '🙈' : '👁️';
+  passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+});
