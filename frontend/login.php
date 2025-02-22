@@ -79,7 +79,7 @@ $(document).ready(function() {
            
             timeoutId = setTimeout(function() {
                 $.ajax({
-                    url: '../backend/auth_log.php',
+                    url: '../backend/auth_login.php',
                     type: 'POST',
                     data: { email: email },
                     success: function(response) {
