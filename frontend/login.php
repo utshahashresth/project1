@@ -198,7 +198,7 @@
 
     <div class="container">
         <div class="logo-container">
-            <img src="img/img.png" alt="Logo" class="logo">
+           
         </div>
         
         <h1>Welcome back</h1>
