@@ -170,7 +170,7 @@
 <body>
     <div class="container">
         <div class="logo-container">
-            <img src="img/img.png" alt="Logo" class="logo">
+            
         </div>
         
         <h1>Create an account</h1>
