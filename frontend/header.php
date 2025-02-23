@@ -154,7 +154,7 @@
 <body>
     <div class="top-bar">
         <div class="logo">
-            <img src="img/img.png" alt="Company Logo" class="img">
+           
         </div>
         <div class="profile">
             <button class="profile-trigger" onclick="toggleDropdown()">
