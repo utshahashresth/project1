@@ -277,5 +277,6 @@
         }
     });
     </script>
+ <script src="navigation.js"></script>
 </body>
 </html>
