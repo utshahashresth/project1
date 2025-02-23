@@ -254,5 +254,6 @@
             return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
         }
     </script>
+    <script src="navigation.js"></script>
 </body>
 </html>

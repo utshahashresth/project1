@@ -227,6 +227,7 @@
     </div>
     </div>
     </div>
+    <script src="navigation.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
     fetch("get_categories.php")
@@ -325,6 +326,6 @@
             loadBudgets(); // Reload budgets after submission
         });
     </script>
-    <script src="navigation.js"></script>
+   
 </body>
 </html>
