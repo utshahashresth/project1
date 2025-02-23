@@ -199,7 +199,7 @@ $(document).ready(function() {
 
     function fetchAndUpdateDashboard() {
         $.ajax({
-            url: '/project1/backend/sum_fetch.php',
+            url: '../backend/sum_fetch.php',
             method: 'GET',
             dataType: 'json',
             success: function(data) {
