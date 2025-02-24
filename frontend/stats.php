@@ -28,8 +28,9 @@
     </style>
 </head>
 <body>
-    <div class="main">
+
         <?php include 'sidebar.php'; ?> 
+        <div class="main">
         <div class="mid-bar">
             <div class="dash">Statistics</div>
             <div class="chart-controls" style="margin-bottom: 20px;">
@@ -38,7 +39,7 @@
                     <option value="month" selected>Monthly</option>
                     <option value="year">Yearly</option>
                 </select>
-                <button id="refreshData" style="margin-left: 10px; padding: 8px 16px; border-radius: 4px; background: #4CAF50; color: white; border: none; cursor: pointer;">
+                <button id="refreshData" style="margin-left: 10px; padding: 8px 16px; border-radius: 4px; background:rgb(0, 0, 0); color: white; border: none; cursor: pointer;">
                     Refresh Data
                 </button>
             </div>

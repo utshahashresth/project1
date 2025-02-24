@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Check if category exists in income_categories
+    // Check if category exists in expense_categories
     $query = "SELECT id FROM expense_categories WHERE category_name = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "s", $category);
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Insert into income table with correct category_id
+    // Insert into expense table with correct category_id
     try {
         $query = "INSERT INTO expense (u_id, category_id, amount, date, notes) VALUES (?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $query);
@@ -66,11 +66,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception(mysqli_error($conn));
         }
 
+        // Update the budget after inserting the expense
+        $budgetQuery = "SELECT amount, spent_amount FROM budgets WHERE category_id = ?";
+        $budgetStmt = mysqli_prepare($conn, $budgetQuery);
+        mysqli_stmt_bind_param($budgetStmt, "i", $category_id);
+        mysqli_stmt_execute($budgetStmt);
+        $budgetResult = mysqli_stmt_get_result($budgetStmt);
+        $budget = mysqli_fetch_assoc($budgetResult);
+
+        // Calculate the new budget and spent amount
+        if ($budget) {
+            $newBudgetAmount = $budget['amount'] - $amount;
+            $newSpentAmount = $budget['spent_amount'] + $amount;
+
+            // Update the budget in the database
+            $updateQuery = "UPDATE budgets SET amount = ?, spent_amount = ? WHERE category_id = ?";
+            $updateStmt = mysqli_prepare($conn, $updateQuery);
+            mysqli_stmt_bind_param($updateStmt, "ddi", $newBudgetAmount, $newSpentAmount, $category_id);
+            mysqli_stmt_execute($updateStmt);
+            mysqli_stmt_close($updateStmt);
+        }
+
         // Return success response
         echo json_encode(['success' => true]);
 
-        // Close statement
+        // Close statements
         mysqli_stmt_close($stmt);
+        mysqli_stmt_close($budgetStmt);
     } catch (Exception $e) {
         echo json_encode([
             'success' => false,

@@ -7,6 +7,19 @@
   <link href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css" rel="stylesheet">
   <link rel="stylesheet" href="./css/home.css">
 </head>
+<style>
+#balanceChart {
+      max-width: 100%;
+      height: 100px !important;
+      width: 100px !important;
+  ;
+    }
+    .chart-container {
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+    }
+  </style>
 <body>
   <?php include "sidebar.php"; ?>
 
@@ -26,6 +39,8 @@
         <i class="icon-trending-up"></i>
         <span>+8% from last month</span>
       </div>
+      <canvas id="balanceChart"></canvas>
+
     </div>
 
     <div class="grid-layout">
@@ -80,7 +95,7 @@
       </form>
     </div>
   </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     // Open Modal to Add Transaction
     function openModal() {
@@ -316,6 +331,73 @@ document.addEventListener('DOMContentLoaded', fetchCategories);
 
     // Call the function when the page loads
     fetchBalance();
+    <!-- Chart.js for Dynamic Graph -->
+
+
+
+  let balanceChart;
+
+  async function fetchBalanceTrend() {
+    try {
+      const response = await fetch('/project1/backend/balance_trend.php');
+      const data = await response.json();
+
+      if (!data || data.length === 0) {
+        console.error("No balance trend data found");
+        return;
+      }
+
+      const labels = data.map(entry => entry.date);
+      const balances = data.map(entry => entry.balance);
+
+      updateBalanceChart(labels, balances);
+    } catch (error) {
+      console.error('Error fetching balance trend data:', error);
+    }
+  }
+
+  function updateBalanceChart(labels, data) {
+    const ctx = document.getElementById('balanceChart').getContext('2d');
+
+    if (balanceChart) {
+      balanceChart.destroy();
+    }
+
+    balanceChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Balance Trend',
+          data: data,
+          borderColor: '#4CAF50',
+          backgroundColor: 'rgb(0, 0, 0)',
+          borderWidth: 2,
+          pointRadius: 3,
+          pointBackgroundColor: '#4CAF50',
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { display: false },
+          y: { display: false }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", fetchBalanceTrend);
+</script>
+
+  </script>
+
+ 
   </script>
 </body>
 </html>

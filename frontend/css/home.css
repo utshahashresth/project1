@@ -145,7 +145,7 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #22c55e;
+  color: #000000;
   font-size: 14px;
 }
 
@@ -203,7 +203,7 @@ body {
 
 .progress-bar {
   height: 100%;
-  background: #3b82f6;
+  background: #000000;
   border-radius: 4px;
 }
 
@@ -324,4 +324,23 @@ body {
 
 .submit-btn:hover {
   background: rgb(39, 39, 39);
+}
+.balance-trend {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+/* Light green background */
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: fit-content; /* Ensures it only takes as much space as needed */
+}
+
+.balance-trend i {
+  font-size: 16px;
+}
+
+.balance-trend span {
+  font-weight: bold;
 }
