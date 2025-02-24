@@ -10,6 +10,11 @@ ini_set('display_errors', 1);
 
 include("connect.php");
 
+// Get JSON data
+$json_data = file_get_contents('php://input');
+error_log('Received data: ' . $json_data); // Debug log
+$data = json_decode($json_data, true);
+
 // Ensure the user is logged in
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'error' => 'User not logged in']);
@@ -25,11 +30,11 @@ if (!$conn) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve and sanitize inputs
-    $category = mysqli_real_escape_string($conn, $_POST['category']);
-    $amount = floatval($_POST['amount']);
-    $date = mysqli_real_escape_string($conn, $_POST['date']);
-    $note = mysqli_real_escape_string($conn, $_POST['note'] ?? '');
+    // Retrieve and sanitize inputs from JSON data
+    $category = mysqli_real_escape_string($conn, $data['category']);
+    $amount = floatval($data['amount']);
+    $date = mysqli_real_escape_string($conn, $data['date']);
+    $note = mysqli_real_escape_string($conn, $data['description'] ?? '');
 
     // Validate input
     if (empty($category) || $amount <= 0 || empty($date)) {
@@ -37,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Check if category exists in expense_categories
+    // Check if category exists in income_categories
     $query = "SELECT id FROM expense_categories WHERE category_name = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "s", $category);
@@ -51,32 +56,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Insert into expense table with correct category_id
+    // Insert into income table with correct category_id
     try {
         $query = "INSERT INTO expense (u_id, category_id, amount, date, notes) VALUES (?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($stmt, "iidss", $user_id, $category_id, $amount, $date, $note);
 
         if (!mysqli_stmt_execute($stmt)) {
-            throw new Exception(mysqli_error($conn)); // Capture MySQL error
+            throw new Exception(mysqli_error($conn));
         }
 
-        // Update budget spent_amount
-        $update_budget = "UPDATE budgets SET spent_amount = spent_amount + ? WHERE u_id = ? AND category_id = ?";
-        $stmt = mysqli_prepare($conn, $update_budget);
-        mysqli_stmt_bind_param($stmt, "dii", $amount, $user_id, $category_id);
-        mysqli_stmt_execute($stmt);
-
-        // Check if any row was affected (budget exists)
-        if (mysqli_stmt_affected_rows($stmt) === 0) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'No budget found for this category',
-                'category_id' => $category_id
-            ]);
-        } else {
-            echo json_encode(['success' => true]);
-        }
+        // Return success response
+        echo json_encode(['success' => true]);
 
         // Close statement
         mysqli_stmt_close($stmt);

@@ -12,10 +12,7 @@
 
 <body>
     <div class="main">
-    <?php
-     include"header.php"
-     ?>
-
+  
     <?php include 'sidebar.php'; ?> 
 
     <div class="mid-bar">
