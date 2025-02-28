@@ -1,154 +1,76 @@
 <?php
 session_start();
-header('Content-Type: application/json');
+include("connect.php");
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "project";
-
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Assuming user is logged in and we have their u_id
-    $u_id = $_SESSION['user_id'] ?? 1; // Replace with actual session handling
-
-    // Get current month and year
-    $currentMonth = date('m');
-    $currentYear = date('Y');
-
-    // Calculate total expenses for the current month
-    $stmt = $conn->prepare("
-        SELECT COALESCE(SUM(amount), 0) as total 
-        FROM expense 
-        WHERE MONTH(date) = ? 
-        AND YEAR(date) = ? 
-        AND u_id = ? 
-        AND deleted_at IS NULL
-    ");
-    $stmt->execute([$currentMonth, $currentYear, $u_id]);
-    $totalExpenses = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
-
-    // Get monthly income
-    $stmt = $conn->prepare("
-        SELECT COALESCE(SUM(amount), 0) as total 
-        FROM income 
-        WHERE MONTH(date) = ? 
-        AND YEAR(date) = ? 
-        AND u_id = ? 
-        AND deleted_at IS NULL
-    ");
-    $stmt->execute([$currentMonth, $currentYear, $u_id]);
-    $monthlyIncome = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
-
-    // Calculate monthly savings
-    $monthlySavings = $monthlyIncome - $totalExpenses;
-
-    // Get largest expense with proper category name
-    $stmt = $conn->prepare("
-        SELECT e.amount, ec.category_name AS category
-        FROM expense e
-        JOIN expense_categories ec ON e.category_id = ec.id
-        WHERE MONTH(e.date) = ? 
-        AND YEAR(e.date) = ? 
-        AND e.u_id = ?
-        AND e.deleted_at IS NULL 
-        ORDER BY e.amount DESC 
-        LIMIT 1
-    ");
-    $stmt->execute([$currentMonth, $currentYear, $u_id]);
-    $largestExpense = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Get last 6 months of expenses and income
-    $months = [];
-    $monthlyExpenses = [];
-    $monthlyIncomes = [];
-
-    for ($i = 5; $i >= 0; $i--) {
-        $date = date('Y-m', strtotime("-$i months"));
-        $month = date('M', strtotime("-$i months"));
-        $year = date('Y', strtotime("-$i months"));
-        $monthNum = date('m', strtotime("-$i months"));
-
-        $months[] = $month;
-
-        // Get expenses for the month
-        $stmt = $conn->prepare("
-            SELECT COALESCE(SUM(amount), 0) as total 
-            FROM expense 
-            WHERE MONTH(date) = ? 
-            AND YEAR(date) = ? 
-            AND u_id = ? 
-            AND deleted_at IS NULL
-        ");
-        $stmt->execute([$monthNum, $year, $u_id]);
-        $monthlyExpenses[] = floatval($stmt->fetch(PDO::FETCH_ASSOC)['total']);
-
-        // Get income for the month
-        $stmt = $conn->prepare("
-            SELECT COALESCE(SUM(amount), 0) as total 
-            FROM income 
-            WHERE MONTH(date) = ? 
-            AND YEAR(date) = ? 
-            AND u_id = ? 
-            AND deleted_at IS NULL
-        ");
-        $stmt->execute([$monthNum, $year, $u_id]);
-        $monthlyIncomes[] = floatval($stmt->fetch(PDO::FETCH_ASSOC)['total']);
-    }
-
-    // Get expenses grouped by category
-    $stmt = $conn->prepare("
-        SELECT ec.category_name AS category, COALESCE(SUM(e.amount), 0) as total 
-        FROM expense e
-        JOIN expense_categories ec ON e.category_id = ec.id
-        WHERE MONTH(e.date) = ? 
-        AND YEAR(e.date) = ? 
-        AND e.u_id = ?
-        AND e.deleted_at IS NULL 
-        GROUP BY ec.category_name
-    ");
-    $stmt->execute([$currentMonth, $currentYear, $u_id]);
-    $categoryData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    $expenseCategories = [];
-    $categoryAmounts = [];
-    foreach ($categoryData as $data) {
-        $expenseCategories[] = $data['category'];
-        $categoryAmounts[] = floatval($data['total']);
-    }
-
-    // Calculate budget status (assuming 70% of income as budget)
-    $budgetAmount = $monthlyIncome * 0.7;  // 70% of income as budget
-    $budgetStatus = $budgetAmount > 0 ? 
-        round(($budgetAmount - $totalExpenses) / $budgetAmount * 100) : 0;
-
-    // Prepare response
-    $response = [
-        'success' => true,
-        'total_expenses' => $totalExpenses,
-        'monthly_savings' => $monthlySavings,
-        'largest_expense' => [
-            'amount' => $largestExpense['amount'] ?? 0,
-            'category' => $largestExpense['category'] ?? 'N/A'
-        ],
-        'budget_status' => $budgetStatus,
-        'months' => $months,
-        'monthly_expenses' => $monthlyExpenses,
-        'monthly_income' => $monthlyIncomes,
-        'expense_categories' => $expenseCategories,
-        'category_amounts' => $categoryAmounts
-    ];
-
-    echo json_encode($response);
-
-} catch (PDOException $e) {
-    echo json_encode([
-        'success' => false,
-        'error' => "Connection failed: " . $e->getMessage()
-    ]);
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['error' => 'User not logged in']);
+    exit;
 }
 
-$conn = null;
+$user_id = $_SESSION['user_id'];
+
+// Get the date range from the GET parameter, default to 'month'
+$dateRange = isset($_GET['dateRange']) ? $_GET['dateRange'] : 'month';
+$whereClause = "";
+
+switch ($dateRange) {
+    case 'week':
+        // Filter for the current week (Monday to Sunday)
+        $whereClause = " AND YEARWEEK(date, 1) = YEARWEEK(CURDATE(), 1)";
+        break;
+    case 'month':
+        // Filter for the current month
+        $whereClause = " AND DATE_FORMAT(date, '%Y-%m') = DATE_FORMAT(CURRENT_DATE, '%Y-%m')";
+        break;
+    case 'quarter':
+        // Filter for the current quarter and year
+        $whereClause = " AND QUARTER(date) = QUARTER(CURDATE()) AND YEAR(date) = YEAR(CURDATE())";
+        break;
+    case 'year':
+        // Filter for the current year
+        $whereClause = " AND YEAR(date) = YEAR(CURDATE())";
+        break;
+    default:
+        // Fallback to current month if an unknown value is provided
+        $whereClause = " AND DATE_FORMAT(date, '%Y-%m') = DATE_FORMAT(CURRENT_DATE, '%Y-%m')";
+        break;
+}
+
+// Prepare and execute the query to get total expenses
+$expense_query = "SELECT SUM(amount) AS total_expense FROM expense WHERE u_id = ? $whereClause";
+$stmt = $conn->prepare($expense_query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$expense_result = $stmt->get_result();
+$expense_data = $expense_result->fetch_assoc();
+$stmt->close();
+
+// Prepare and execute the query to get total income
+$income_query = "SELECT SUM(amount) AS total_income FROM income WHERE u_id = ? $whereClause";
+$stmt = $conn->prepare($income_query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$income_result = $stmt->get_result();
+$income_data = $income_result->fetch_assoc();
+$stmt->close();
+
+// Calculate total savings as 30% of total income
+$total_income = $income_data['total_income'] ?? 0;
+$total_savings = $total_income * 0.30; // Calculate 30% of total income
+
+// Prepare the response
+$response = [
+    'total_expense' => $expense_data['total_expense'] ?? 0,
+    'total_savings' => $total_savings,
+    'total_income' => $total_income,
+    
+];
+
+// Set the content type to JSON and output the response
+header('Content-Type: application/json');
+echo json_encode($response);
+
+// Close the database connection
+mysqli_close($conn);
 ?>

@@ -1,129 +1,269 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-  
-  .container {
-    max-width: 75rem; /* 1200px */
-    margin: 0 auto;
-  }
-  
-  .summary-container {
-    padding: 1.25rem;
-    max-width: 75rem;
-    margin: 0 auto;
-  }
-  
-  .header h1 {
-    color: #1f2937;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .header p {
-    color: #6b7280;
-  }
-  
-  .cards-container,
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
-    gap: 1.25rem;
-    margin-bottom: 1.875rem;
-  }
-  
-  .stat-card,
-  .chart-card {
-    background: white;
-    padding: 1.25rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.0625rem 0.1875rem rgba(0,0,0,0.1);
-  }
-  
-  .stat-card .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.9375rem;
-  }
-  
-  .stat-card h3 {
-    font-size: 0.875rem;
-    color: #4b5563;
-  }
-  
-  .stat-card .amount {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #1f2937;
-    margin-bottom: 0.3125rem;
-  }
-  
-  .stat-card .trend {
-    font-size: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-  }
-  
-  .trend.up {
-    color: #ef4444;
-  }
-  
-  .trend.down {
-    color: #10b981;
-  }
-  
-  .charts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-    gap: 1.25rem;
-    margin-bottom: 1.875rem;
-  }
-  
-  .chart-card h3 {
-    color: #1f2937;
-    margin-bottom: 0.9375rem;
-  }
-  
-  .chart {
-    width: 100%;
-    height: 18.75rem;
-    background: #f9fafb;
-    border-radius: 0.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #6b7280;
-  }
-  
-  .progress-bar {
-    width: 100%;
-    height: 0.5rem;
-    background-color: #e5e7eb;
-    border-radius: 0.25rem;
-    margin-top: 0.5rem;
-  }
-  
-  .progress-bar .fill {
-    height: 100%;
-    border-radius: 0.25rem;
-    background-color: #10b981;
-    width: 85%;
-  }
-  
-  @media (max-width: 48rem) { /* 768px */
-    .charts-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .stat-card {
-      padding: 0.9375rem;
-    }
-    
-    .header h1 {
-      font-size: 1.5rem;
-    }
-  }
+            .header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 24px;
+          }
+          .header h1 {
+              font-size: 24px;
+              font-weight: 700;
+              color: #1f2937;
+          }
+          .date-range {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+          }
+          .date-range span {
+              font-size: 14px;
+              color: #4b5563;
+          }
+          .date-range select {
+              border: 1px solid #e5e7eb;
+              border-radius: 4px;
+              padding: 8px;
+              font-size: 14px;
+          }
+          .export-btn {
+              background-color: #000000;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              padding: 8px 12px;
+              margin-left: 16px;
+              cursor: pointer;
+          }
+          .stats-grid {
+              display: grid;
+              grid-template-columns: repeat(1, 1fr);
+              gap: 16px;
+              margin-bottom: 24px;
+          }
+          @media (min-width: 768px) {
+              .stats-grid {
+                  grid-template-columns: repeat(2, 1fr);
+              }
+          }
+          @media (min-width: 1024px) {
+              .stats-grid {
+                  grid-template-columns: repeat(4, 1fr);
+              }
+          }
+          .stat-card {
+              background-color: #f9fafb;
+              padding: 16px;
+              border-radius: 8px;
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          }
+          .stat-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 8px;
+          }
+          .stat-header h3 {
+              font-weight: 600;
+          }
+          .stat-value {
+              font-size: 24px;
+              font-weight: 700;
+              margin-bottom: 4px;
+          }
+          .stat-context {
+              font-size: 14px;
+          }
+          .progress-bar {
+              width: 100%;
+              height: 10px;
+              background-color: #9b9b9b;
+              border-radius: 999px;
+              margin-top: 8px;
+          }
+          .progress-value {
+              height: 10px;
+              border-radius: 999px;
+          }
+          .insights {
+              background-color: #eff6ff;
+              padding: 16px;
+              border-radius: 8px;
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+              margin-bottom: 24px;
+          }
+          .insights-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 8px;
+          }
+          .insights-header h3 {
+              font-weight: 600;
+          }
+          .insights-list {
+              list-style-position: inside;
+              padding-left: 20px;
+          }
+          .insights-list li {
+              color: #4b5563;
+              margin-bottom: 4px;
+          }
+          .expenses {
+              background-color: #f9fafb;
+              padding: 16px;
+              border-radius: 8px;
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+              margin-bottom: 24px;
+          }
+          .expenses-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 16px;
+          }
+          .expenses-header h3 {
+              font-weight: 600;
+          }
+          .expenses-header span {
+              font-size: 14px;
+              color: #6b7280;
+          }
+          table {
+              width: 100%;
+              border-collapse: collapse;
+          }
+          th {
+              background-color: #f3f4f6;
+              text-align: left;
+              padding: 8px 12px;
+          }
+          td {
+              padding: 8px 12px;
+              border-bottom: 1px solid #e5e7eb;
+          }
+          .text-right {
+              text-align: right;
+          }
+          .goals-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 16px;
+          }
+   
+          .goal-form.active {
+              display: block;
+          }
+          .goal-inputs {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 16px;
+          }
+          @media (min-width: 768px) {
+              .goal-inputs {
+                  grid-template-columns: repeat(3, 1fr);
+              }
+          }
+          .goal-inputs input {
+              border: 1px solid #e5e7eb;
+              padding: 8px;
+              border-radius: 4px;
+          }
+          .goal-inputs button {
+              background-color: #3b82f6;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              padding: 8px;
+              cursor: pointer;
+          }
+          .goals-grid {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 16px;
+              margin-bottom: 24px;
+          }
+          @media (min-width: 768px) {
+              .goals-grid {
+                  grid-template-columns: repeat(2, 1fr);
+              }
+          }
+          .goal-card {
+              background-color: #f9fafb;
+              padding: 16px;
+              border-radius: 8px;
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          }
+          .goal-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 8px;
+          }
+          .goal-header h4 {
+              font-weight: 500;
+          }
+          .goal-header span {
+              font-size: 14px;
+              color: #6b7280;
+          }
+          .goal-amounts {
+              display: flex;
+              justify-content: space-between;
+              font-size: 14px;
+              color: #6b7280;
+              margin-bottom: 4px;
+          }
+          .charts-grid {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 24px;
+          }
+          @media (min-width: 768px) {
+              .charts-grid {
+                  grid-template-columns: repeat(2, 1fr);
+              }
+          }
+          .chart-card {
+              background-color: white;
+              padding: 16px;
+              border-radius: 8px;
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          }
+          .chart-card h3 {
+              font-weight: 600;
+              margin-bottom: 16px;
+          }
+          .chart-container {
+              height: 256px;
+          }
+  /* Updated classes for different colors */
+.text-green {
+    color: #10b981;  /* Use a proper green color */
+}
+.text-teal {
+    color: #000000;  /* Use a proper teal color */
+}
+.text-red {
+    color: #ef4444;  /* Add red color for over budget */
+}
+.bg-purple {
+    background-color: #000000;  /* Use a proper purple color */
+}
+.bg-teal {
+    background-color: #000000;  /* Use a proper teal color */
+}
+.bg-red {
+    background-color: #ef4444;  /* Add red color for over budget */
+}
+.bg-green {
+    background-color: #000000;  /* Use a proper green color */
+}
+
+/* Add specific classes for different progress bars */
+.financial-health-progress {
+    /* You can add this class to the financial health progress bar in HTML if needed */
+}
+.budget-progress {
+    /* You can add this class to the budget progress bar in HTML if needed */
+}
+            

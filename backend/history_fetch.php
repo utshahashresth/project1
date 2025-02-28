@@ -99,7 +99,8 @@ try {
 
     $transactions = [];
     while ($row = $result->fetch_assoc()) {
-        $row['date'] = date('Y-m-d H:i:s', strtotime($row['date']));
+        $row['date'] = date('d M Y', strtotime($row['date']));
+
         $row['amount'] = number_format((float)$row['amount'], 2, '.', '');
 
         if ($row['type'] === 'expense') {

@@ -66,23 +66,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception(mysqli_error($conn));
         }
 
-        // Update the budget after inserting the expense
-        $budgetQuery = "SELECT amount, spent_amount FROM budgets WHERE category_id = ?";
+        // Update only the spent_amount in the budget table
+        $budgetQuery = "SELECT spent_amount FROM budgets WHERE category_id = ?";
         $budgetStmt = mysqli_prepare($conn, $budgetQuery);
         mysqli_stmt_bind_param($budgetStmt, "i", $category_id);
         mysqli_stmt_execute($budgetStmt);
         $budgetResult = mysqli_stmt_get_result($budgetStmt);
         $budget = mysqli_fetch_assoc($budgetResult);
 
-        // Calculate the new budget and spent amount
+        // Update the spent_amount
         if ($budget) {
-            $newBudgetAmount = $budget['amount'] - $amount;
             $newSpentAmount = $budget['spent_amount'] + $amount;
 
-            // Update the budget in the database
-            $updateQuery = "UPDATE budgets SET amount = ?, spent_amount = ? WHERE category_id = ?";
+            // Update the spent_amount in the database, but not the total amount
+            $updateQuery = "UPDATE budgets SET spent_amount = ? WHERE category_id = ?";
             $updateStmt = mysqli_prepare($conn, $updateQuery);
-            mysqli_stmt_bind_param($updateStmt, "ddi", $newBudgetAmount, $newSpentAmount, $category_id);
+            mysqli_stmt_bind_param($updateStmt, "di", $newSpentAmount, $category_id);
             mysqli_stmt_execute($updateStmt);
             mysqli_stmt_close($updateStmt);
         }

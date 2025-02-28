@@ -32,7 +32,7 @@
         <?php include 'sidebar.php'; ?> 
         <div class="main">
         <div class="mid-bar">
-            <div class="dash">Statistics</div>
+            <div class="dash"></div>
             <div class="chart-controls" style="margin-bottom: 20px;">
                 <select id="timePeriod" style="padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
                     <option value="week">Weekly</option>

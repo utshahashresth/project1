@@ -2,11 +2,16 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background:white;
+  background: white;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .dashboard {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -48,31 +53,20 @@ body {
   gap: 8px;
   text-decoration: none;
   color: #4b5563;
+  transition: color 0.3s ease-in-out, font-weight 0.3s ease-in-out;
 }
 
 .nav-link.active {
-  color: #3b82f6;
+  color: #000000;
+  font-weight: bold;
 }
 
 .nav-link:hover {
-  color: #3b82f6;
+  color: #818181;
 }
 
-.search-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #f3f4f6;
-  padding: 8px 12px;
-  border-radius: 8px;
-}
 
-.search-bar input {
-  border: none;
-  background: transparent;
-  outline: none;
-  width: 160px;
-}
+
 
 .notification-btn {
   position: relative;
@@ -113,6 +107,9 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px;
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .balance-card {
@@ -144,9 +141,20 @@ body {
 .balance-trend {
   display: flex;
   align-items: center;
-  gap: 4px;
-  color: #000000;
+  gap: 5px;
+  color: rgb(0, 0, 0);
   font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.balance-trend i {
+  font-size: 16px;
+}
+
+.balance-trend span {
+  font-weight: bold;
 }
 
 /* Grid Layout */
@@ -231,6 +239,7 @@ body {
 .amount.positive {
   color: #22c55e;
 }
+
 /* Add Transaction Button */
 .add-transaction-btn {
   background: black;
@@ -325,22 +334,19 @@ body {
 .submit-btn:hover {
   background: rgb(39, 39, 39);
 }
-.balance-trend {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: rgb(0, 0, 0);
-  font-size: 14px;
-/* Light green background */
-  padding: 5px 10px;
+.custom-message {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
   border-radius: 5px;
-  width: fit-content; /* Ensures it only takes as much space as needed */
-}
-
-.balance-trend i {
+  display: none;  /* Initially hidden */
+  z-index: 1000;
   font-size: 16px;
 }
-
-.balance-trend span {
-  font-weight: bold;
+.custom-message.error {
+  background-color: #f44336;
 }
