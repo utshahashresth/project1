@@ -192,65 +192,46 @@
             this.style.transform = 'scale(1)';
         });
         $(document).ready(function() {
-    let timeoutId;
+            let timeoutId;
 
-    $('#email').on('input', function() {
-        clearTimeout(timeoutId);
-        const email = $(this).val();
-        const statusDiv = $('#status');
+            $('#email').on('input', function() {
+                clearTimeout(timeoutId);
+                const email = $(this).val();
+                const statusDiv = $('#status');
 
-        if (!email) {
-            statusDiv.html('');
-            return;
-        }
-
-        timeoutId = setTimeout(function() {
-            $.ajax({
-                url: '/project1/backend/auth_login.php',
-                type: 'POST',
-                data: {
-                    email: email
-                },
-                success: function(response) {
-                    const result = JSON.parse(response);
-                    if (result.exists) {
-                        statusDiv.html('')
-                            .removeClass('error')
-                            .addClass('success');
-                    } else {
-                        statusDiv.html('✗ Email is not registered')
-                            .removeClass('success')
-                            .addClass('error');
-                    }
-                },
-                error: function() {
-                    statusDiv.html('Error checking email')
-                        .removeClass('success')
-                        .addClass('error');
+                if (!email) {
+                    statusDiv.html('');
+                    return;
                 }
+
+                timeoutId = setTimeout(function() {
+                    $.ajax({
+                        url: '/project1/backend/auth_login.php',
+                        type: 'POST',
+                        data: {
+                            email: email
+                        },
+                        success: function(response) {
+                            const result = JSON.parse(response);
+                            if (result.exists) {
+                                statusDiv.html('')
+                                    .removeClass('error')
+                                    .addClass('success');
+                            } else {
+                                statusDiv.html('✗ Email is not registered')
+                                    .removeClass('success')
+                                    .addClass('error');
+                            }
+                        },
+                        error: function() {
+                            statusDiv.html('Error checking email')
+                                .removeClass('success')
+                                .addClass('error');
+                        }
+                    });
+                }, 500);
             });
-        }, 500);
-    });
-
-    // Add form submission handler for password validation
-    $('form').on('submit', function(e) {
-        e.preventDefault();
-        const email = $('#email').val();
-        const password = $('input[name="pword"]').val();
-        const statusDiv = $('#status');
-
-        if (!email || !password) {
-            statusDiv.html('✗ Email and password are required')
-                .removeClass('success')
-                .addClass('error');
-            return;
-        }
-
-     
-           
-       
-    });
-});
+        });
     </script>
 </body>
 
