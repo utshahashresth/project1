@@ -1,85 +1,216 @@
-let button = document.getElementById("button");
-let message = document.getElementById("message");
-let msg = document.getElementById("msg");
-let email = document.getElementById("email");
+const eyeIcons = document.querySelectorAll('.eye-icon');
+eyeIcons.forEach(icon => {
+    icon.addEventListener('click', function() {
+        const passwordInput = this.previousElementSibling.previousElementSibling;
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+        } else {
+            passwordInput.type = 'password';
+        }
+    });
+});
 
-msg.innerText = "";
-message.innerText = "";
-message.classList.remove("error_msg", "success_msg");
+// Slider functionality
+const dots = document.querySelectorAll('.slider-dot');
+const prevBtn = document.querySelector('.slider-controls .slider-arrow:first-child');
+const nextBtn = document.querySelector('.slider-controls .slider-arrow:last-child');
+let currentSlide = 1; // Active slide is the second one (index 1)
 
-document.getElementById("password").addEventListener("input", validatePassword);
-
-function validatePassword() {
-   if (password.value.length < 8) {
-      msg.innerText = "Password must be at least 8 characters long";
-      msg.classList.add("error_msg"); 
-      button.disabled = true;
-      return false;
-    }
-    else {
-      button.disabled = false;
-      msg.innerText = "";
-    }
- 
-   const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  if (!strongPassword.test(password.value)) {
-    msg.innerText =
-      "Password must include uppercase, lowercase, number, and special character";
-    msg.classList.add("error_msg");
-    button.disabled = true;
-    return false;
-  }
+function updateSlider() {
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+    });
 }
 
-document.getElementById("c_password").addEventListener("input", validatePasswords);
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        currentSlide = index;
+        updateSlider();
+    });
+});
 
-function validatePasswords() {
-  const password = document.getElementById("password");
-  const c_password = document.getElementById("c_password");
+prevBtn.addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + dots.length) % dots.length;
+    updateSlider();
+});
 
-  message.innerText = "";
-  message.classList.remove("error_msg", "success_msg");
+nextBtn.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % dots.length;
+    updateSlider();
+});
 
- 
-  if (password.value !== c_password.value) {
-    message.innerText = "Passwords do not match";
-    message.classList.add("error_msg");
-    return false;
-  } else {
-    message.innerText = "password matched sucessfully";
-    message.classList.add("success_msg");
-    button.disabled = false;
-    return true;
-  }
+// Button animation
+const signupBtn = document.querySelector('.btn-signup');
+signupBtn.addEventListener('mousedown', function() {
+    this.style.transform = 'scale(0.98)';
+});
+
+signupBtn.addEventListener('mouseup', function() {
+    this.style.transform = 'scale(1)';
+});
+
+signupBtn.addEventListener('mouseleave', function() {
+    this.style.transform = 'scale(1)';
+});
+// Get form elements
+const signupForm = document.getElementById('signup-form');
+const firstName = document.querySelector('input[name="f_name"]');
+const lastName = document.querySelector('input[name="l_name"]');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const confirmPassword = document.getElementById('c_password');
+const termsCheckbox = document.getElementById('terms');
+const emailMsg = document.getElementById('email__msg');
+const passwordMsg = document.getElementById('msg');
+const passwordValidate = document.getElementById('validate');
+const confirmPasswordMsg = document.getElementById('message');
+
+// Email validation function
+function isValidEmail(email) {
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+return emailRegex.test(email);
 }
- document.getElementById("email").addEventListener("input", validateEmail);
-function validateEmail() {
-  
-   const emailMsg = document.getElementById("email_msg");
- 
-  
-   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-   if (!emailRegex.test(email.value)) {
-     emailMsg.innerText = "Invalid email format";
-     emailMsg.classList.add("error_msg");
-     button.disabled = true;
-     return false;
-   }
- 
-  
-   const commonDomains = ["gmail.com", "yahoo.com", "outlook.com"];
-   const emailParts = email.value.split("@");
-   if (emailParts.length > 1) {
-     const domain = emailParts[1];
-     if (!commonDomains.includes(domain)) {
-      
-       emailMsg.classList.add("error_msg");
-     }
-   } else {
-     emailMsg.innerText = "";
-   }
- 
-   emailMsg.classList.remove("error_msg");
-   button.disabled = false;
-   return true;
- }
+
+// Password strength validation
+function isStrongPassword(password) {
+// At least 8 characters, 1 uppercase, 1 lowercase, 1 number, and 1 special character
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+return passwordRegex.test(password);
+}
+
+// Real-time email validation
+email.addEventListener('input', function() {
+if (email.value.trim() === '') {
+emailMsg.textContent = '';
+} else if (!isValidEmail(email.value)) {
+emailMsg.textContent = 'Please enter a valid email address';
+emailMsg.style.color = 'red';
+} else {
+emailMsg.textContent = 'Valid email address';
+emailMsg.style.color = 'green';
+}
+});
+
+// Real-time password validation
+password.addEventListener('input', function() {
+if (password.value.trim() === '') {
+passwordMsg.textContent = '';
+passwordValidate.textContent = '';
+} else {
+if (password.value.length < 8) {
+    passwordMsg.textContent = 'Password must be at least 8 characters long';
+    passwordMsg.style.color = 'red';
+} else {
+    passwordMsg.textContent = '';
+}
+
+if (!isStrongPassword(password.value)) {
+    passwordValidate.innerHTML = 'Password must contain:<br>' +
+        '- At least one uppercase letter<br>' +
+        '- At least one lowercase letter<br>' +
+        '- At least one number<br>' +
+        '- At least one special character (@$!%*?&)';
+    passwordValidate.style.color = 'red';
+} else {
+    passwordValidate.textContent = 'Strong password';
+    passwordValidate.style.color = 'green';
+}
+}
+
+// Check password match if confirm password already has a value
+if (confirmPassword.value.trim() !== '') {
+if (password.value !== confirmPassword.value) {
+    confirmPasswordMsg.textContent = 'Passwords do not match';
+    confirmPasswordMsg.style.color = 'red';
+} else {
+    confirmPasswordMsg.textContent = 'Passwords match';
+    confirmPasswordMsg.style.color = 'green';
+}
+}
+});
+
+// Real-time confirm password validation
+confirmPassword.addEventListener('input', function() {
+if (confirmPassword.value.trim() === '') {
+confirmPasswordMsg.textContent = '';
+} else if (password.value !== confirmPassword.value) {
+confirmPasswordMsg.textContent = 'Passwords do not match';
+confirmPasswordMsg.style.color = 'red';
+} else {
+confirmPasswordMsg.textContent = 'Passwords match';
+confirmPasswordMsg.style.color = 'green';
+}
+});
+
+// Form submission validation
+signupForm.addEventListener('submit', function(event) {
+let isValid = true;
+
+// First name validation
+if (firstName.value.trim() === '') {
+isValid = false;
+firstName.style.borderColor = 'red';
+} else {
+firstName.style.borderColor = '';
+}
+
+// Last name validation
+if (lastName.value.trim() === '') {
+isValid = false;
+lastName.style.borderColor = 'red';
+} else {
+lastName.style.borderColor = '';
+}
+
+// Email validation
+if (email.value.trim() === '' || !isValidEmail(email.value)) {
+isValid = false;
+email.style.borderColor = 'red';
+emailMsg.textContent = 'Please enter a valid email address';
+emailMsg.style.color = 'red';
+} else {
+email.style.borderColor = '';
+}
+
+// Password validation
+if (password.value.trim() === '' || !isStrongPassword(password.value)) {
+isValid = false;
+password.style.borderColor = 'red';
+} else {
+password.style.borderColor = '';
+}
+
+// Confirm password validation
+if (confirmPassword.value.trim() === '' || password.value !== confirmPassword.value) {
+isValid = false;
+confirmPassword.style.borderColor = 'red';
+confirmPasswordMsg.textContent = 'Passwords do not match';
+confirmPasswordMsg.style.color = 'red';
+} else {
+confirmPassword.style.borderColor = '';
+}
+
+// Terms checkbox validation
+if (!termsCheckbox.checked) {
+isValid = false;
+termsCheckbox.nextElementSibling.style.color = 'red';
+} else {
+termsCheckbox.nextElementSibling.style.color = '';
+}
+
+// Prevent form submission if validation fails
+if (!isValid) {
+event.preventDefault();
+}
+});
+
+// Reset field styling when focused
+const formInputs = signupForm.querySelectorAll('input');
+formInputs.forEach(input => {
+input.addEventListener('focus', function() {
+this.style.borderColor = '';
+if (this === termsCheckbox) {
+    this.nextElementSibling.style.color = '';
+}
+});
+});

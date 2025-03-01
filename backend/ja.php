@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submitBtn'])) {
     // Sanitize and validate input
     $f_name = htmlspecialchars(trim($_POST["f_name"]));
     $l_name = htmlspecialchars(trim($_POST["l_name"]));

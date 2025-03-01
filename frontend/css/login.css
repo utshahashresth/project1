@@ -1,91 +1,407 @@
-body{
-    background-color: rgba(202, 202, 202, 1);
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+* {
+           
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
 }
-.main{
-    background-color: rgba(238, 238, 238, 1);
-    height: 570px;
-    width: 1240px;
-    margin-left: 60px;
-    margin-top: 30px;
-    
-    }
-    .logo{
-        width: 400px;
-        padding-top: 30px;
-      margin-left: -70px;
-    }
-    .second-main{
-        background-color: white;
-        height: 520px;
-        width: 440px;
-        margin-left: 700px;
-     margin-top: -240px;
-     box-shadow:  3px 4px 4px rgba(31, 31, 31, 0.3);
-    }
-    .title{
-        display: flex;
-        flex-direction: column;
-        margin-left: 30px;
-        }
-        .titles{
-            font-weight: bold;
-            font-size: 38px;
-            margin-top: 12px;
-            color: rgba(1, 137, 71, 1);
-          }
-          .sub-title{
-            font-size: 16px;
-            margin-top: 38px;
-            margin-left: 5px;
-            font-weight: bold;
-          }
-          .details{
-            margin-left: 36px;
-            margin-top: 8px;
-          }
-          input[type=text],input[type=password] {
-            width: 90%;
-            padding: 10px 8px;
-            margin: 8px 0;
-            box-sizing: border-box;
-            border: none;
-            border-bottom: 2px solid rgb(0, 0, 0);
-          }
-          .forgot-pass,.term,.button-holder{
-            margin-left: 36px; 
-            margin-top: 10px;
-          }
-          .forgot-pass{
-            color: rgba(139, 137, 137, 1);
-            font-size: 14px;
-          }
-          .term{
-            font-size: 14px;
-            margin-top: 20px;
-          }
-          .button{
-            margin-top: 30px;
-            background-color: rgba(1, 137, 71, 1);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            width: 120px;
-            font-weight: bold;
-         padding-top: 12px;
-         padding-bottom: 12px;
-         margin-left: 120px;
-          }
-          input[type=text]:focus {
-            border: 1px solid;
-            border-color:rgba(1, 137, 71, 1);  
-        
-          }
-          .status-message {
-            margin-top: 5px;
-            font-size: 14px;
-        }
-        
-        .error { color: red; }
-        
-        .success { color: green; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: #f5f7fa;
+
+}
+
+
+
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.sidebar {
+  width: 25%;
+  min-width: 300px;
+  max-width: 600px;
+  background-color:  #f8f9fa;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+  width: 800px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #333;
+}
+
+.balance-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 200px;
+}
+
+.balance-label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 5px;
+}
+
+.balance-amount {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.chart-card {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 200px;
+}
+
+.chart-label {
+  position: absolute;
+  text-align: center;
+}
+
+.chart-percentage {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.chart-category {
+  font-size: 12px;
+  color: #666;
+}
+
+.donut-chart {
+  width: 100px;
+  height: 100px;
+}
+
+.new-transaction {
+  border: 2px dashed #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background-color: #ffffff;
+  width: 200px;
+}
+
+.new-transaction-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #0d6efd;
+  border-radius: 50%;
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+.new-transaction-text {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.new-transaction-subtext {
+  font-size: 12px;
+  color: #999;
+}
+
+.sidebar-welcome {
+  margin: 20px 0;
+}
+
+.welcome-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.slider-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.slider-arrow {
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.slider-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.slider-dot.active {
+  background-color: #0d6efd;
+}
+
+.login-section {
+  flex-grow: 1;
+  background-color: #ffffff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  overflow-y: auto;
+  
+}
+
+.login-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+  width: 400px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.form-icon {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  color: #999;
+}
+
+.form-control-icon {
+  padding-left: 40px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  color: #999;
+  cursor: pointer;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.forgot-link {
+  color: #000000;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.btn-login {
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.divider-text {
+  padding: 0 10px;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+
+
+.signup-prompt {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.signup-link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  margin-top: 30px;
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+  }
+  
+  .sidebar {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      min-height: 1000vh;
+  }
+  
+  .login-section {
+      width: 100%;
+      padding: 20px;
+  }
+}
+.form-container{
+  margin-left: 180px;
+  margin-top: 80px;
+}
+.forgot-password {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.eye-icon {
+cursor: pointer;
+color: #999;
+}
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  position: relative;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.balance-card {
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+
+.chart-card {
+  grid-column: 2 / 3;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transaction-card {
+  grid-column: 2 / 3;
+  grid-row: 2;
+  text-align: center;
+  border: 2px dashed #ccc;
+  background: #fdfdfd;
+}
+
+.chart-card img {
+  width: 100px;
+  height: 100px;
+}
+
+.plus-icon {
+  font-size: 24px;
+  color: #007bff;
+}
+#status{
+  margin-bottom: 5px;
+  margin-top: -5px;
+}
