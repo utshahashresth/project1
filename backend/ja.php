@@ -1,6 +1,7 @@
 <?php
 // Adjust the path to point to your vendor directory
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
+$config = require __DIR__ . '/config.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -37,13 +38,13 @@ if (isset($_POST['submitBtn'])) {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'utshahas@gmail.com'; // Your Gmail address
-                $mail->Password = 'ulxs nmaz otti vemf';    // Your Gmail App Password
+                $mail->Username = $config['smtp_user'];
+                $mail->Password = $config['smtp_pass'];
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
                 
                 // Recipients
-                $mail->setFrom('your-email@gmail.com', 'Your Name');
+                $mail->setFrom($config['smtp_user'], $config['mail_from_name']);
                 $mail->addAddress($email, $f_name . ' ' . $l_name);
                 
                 // Content
